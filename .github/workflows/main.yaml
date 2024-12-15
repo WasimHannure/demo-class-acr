@@ -22,10 +22,13 @@ jobs:
        login-server: demopush.azurecr.io
        username: ${{ secrets.ACR_USERNAME }}
        password: ${{ secrets.ACR_PASSWORD }}
-   - name: Build and Push docker images to ACR
-     run:
-        docker build -t demopush.azurecr.io/pythonapp:${{ github.sha }} 
-        docker push demopush.azurecr.io/pythonapp:${{ github.sha }}
+   - name: Build and push Docker image 
+     uses: docker/build-push-action@v2 
+     with: 
+      context: . 
+      file: ./Dockerfile 
+      push: true 
+      tags: demopush.azurecr.io/pythonapp:${{ github.sha }}
 
 
       
