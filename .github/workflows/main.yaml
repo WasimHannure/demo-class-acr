@@ -9,17 +9,21 @@ jobs:
   build:
    runs-on: ubuntu:latest
    steps:
+   - name: Checkout the repository
    - uses: actions/checkout@main
+   
    - name: Set up python
    - uses: actions/setup-python@v5.3.0
      with:
       python-version: 3.7
+
+   - name: Azure Login
    - uses: Azure/docker-login@v1
      with:
        login-server: demopush.azurecr.io
        username: ${{ secrets.ACR_USERNAME }}
        password: ${{ secrets.ACR_PASSWORD }}
-
+   - name: Build and Push docker images to ACR
    - run:
       docker build -t demopush.azurecr.io/pythonapp:${{ github.sha }}
       docker push demopush.azurecr.io/pythonapp:${{ github.sha }}
