@@ -13,7 +13,7 @@ jobs:
    - uses: actions/checkout@v2
 
    - name: Azure Login
-   - uses: Azure/docker-login@v1
+   - uses: azure/docker-login@v1
      with:
        login-server: demopush.azurecr.io
        username: ${{ secrets.ACR_USERNAME }}
