@@ -7,12 +7,7 @@ jobs:
    runs-on: ubuntu:latest
    steps:
    - name: Checkout the repository
-   - uses: actions/checkout@v1
-   
-   - name: Set up python
-   - uses: actions/setup-python@v5.3.0
-     with:
-      python-version: 3.7
+   - uses: actions/checkout@v2
 
    - name: Azure Login
    - uses: Azure/docker-login@v1
