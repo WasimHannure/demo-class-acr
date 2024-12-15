@@ -30,5 +30,50 @@ jobs:
       push: true 
       tags: demopush.azurecr.io/pythonapp:${{ github.sha }}
 
+   - name: Create AKS Cluster
+     uses: Azure/aks-create-action@1.1
+     with:
+        # Client ID for Service Principal
+        ARM_CLIENT_ID: 0a975f44-1b92-4744-9603-c58d63280a6a
+        
+        ARM_CLIENT_SECRET: e4J8Q~vxcIvl~64FI6Y2kDgnJD9rQysAdtSePb1S
+        
+        ARM_SUBSCRIPTION_ID: 8168122d-eba3-4ab4-8e4e-ad3dea888609
+        
+        ARM_TENANT_ID: 45e7f43c-8982-4b2a-8042-eed9405abd23
+        
+        RESOURCE_GROUP_NAME: class 
+        
+        CLUSTER_NAME: myclassdemocluster
+        
+        CLUSTER_SIZE: D2s_v3
+
+        
+              
+
+   - name: Kubernetes Set Context
+     uses: Azure/k8s-set-context@v3.0
+     with:
+      resource-group: class
+      cluster-name:  myclassdemocluster
+
+   - name: Deploy to Kubernetes cluster
+     uses: Azure/k8s-deploy@v4.9
+     with:
+       namespace: default
+    
+       manifests: 
+        manifests/deployment.yaml
+        manifest/service.yaml
+       images: demopush.azurecr.io/pythonapp:${{ github.sha }}
+    
+       pull-images: true
+    
+       resource-group: class
+    
+          
+
+    
+
 
       
