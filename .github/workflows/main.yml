@@ -1,0 +1,29 @@
+name: Push image to ACR
+on:
+    workflow_dispatch:
+
+   jobs:
+    build:
+        runs-on: ubuntu-latest
+        
+        steps:
+            - name: Checkout the repo
+              uses: actions/checkout@v2
+
+            - name: Set up Docker
+              uses: docker/set-up-buildx-action@v1
+
+            - name: Azure login
+              uses: azure/docker-login@v1
+              with:
+                login-server: learnaksinclass.azurecr.io
+                username: learnaksinclass
+                password: a6xUnWPA6luv3kjfRgmcS2m37rnFs+c08ezc8WCgLe+ACRAQrBWe
+
+            - name: Build and Push
+              uses: docker/build-push-action@v2
+              with:
+                context: .
+                file: ./Dockerfile
+                push: true
+                tags: learnaksinclass.azurecr.io/myapp:${{github.sha}}
