@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: learnaksinclass.azurecr.io/myapp:latest
+        image: learnaksinclass.azurecr.io/myapp:${{github.sha}}
         ports:
         - containerPort: 3000
 ---
