@@ -18,7 +18,7 @@ on:
               with:
                 login-server: learnaksinclass.azurecr.io
                 username: learnaksinclass
-                password: a6xUnWPA6luv3kjfRgmcS2m37rnFs+c08ezc8WCgLe+ACRAQrBWe
+                password: ${{secrets.ACR_PASSWORD}}
 
             - name: Build and Push
               uses: docker/build-push-action@v2
