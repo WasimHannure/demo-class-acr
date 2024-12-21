@@ -47,7 +47,14 @@ jobs:
             - name: Get AKS credentials
               run: |
                     az aks get-credentials --resource-group ${{ env.resourceGroup }} --name ${{ env.name }}
+            - name: Kubernetes Set Context
+              uses: Azure/k8s-set-context@v3.0
+              with:
+                creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
 
+                resource-group: ${{ env.resourceGroup }}
+                # Azure connected cluster name
+                cluster-name: ${{ env.name }}
             
             - name: Create secret in Cluster
               uses: Azure/k8s-create-secret@v4.0
@@ -62,16 +69,7 @@ jobs:
                     # Container Registry password
                     container-registry-password: ${{secrets.ACR_PASSWORD}}
 
-            - name: Kubernetes Set Context
-              uses: Azure/k8s-set-context@v3.0
-              with:
-                # Acceptable values: generic or arc
-              
-                k8s-secret: mysecret
-              
-                resource-group: ${{ env.resourceGroup }}
-                # Azure connected cluster name
-                cluster-name: ${{ env.name }}
+            
 
             - name: Deploy Image in K8 cluster
               uses: Azure/k8s-deploy@v4.9
