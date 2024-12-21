@@ -43,3 +43,12 @@ jobs:
               with:
              #    # Specify the script here
                   inlineScript: az aks create -g ${{env.resourceGroup}} -n ${{env.name}} --kubernetes-version $kubernetesVersion --generate-ssh-keys
+
+            - name: Get AKS credentials
+              run: |
+                    az aks get-credentials --resource-group ${{ env.resourceGroup }} --name ${{ env.name }}
+
+            # Deploy to AKS
+            - name: Deploy to AKS
+              run: |
+                   kubectl apply -f deploy.yml
