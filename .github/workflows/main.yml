@@ -17,7 +17,7 @@ on:
               uses: azure/docker-login@v1
               with:
                 login-server: learnaksinclass.azurecr.io
-                username: learnaksinclass
+                username: ${{secrets.ACR_USERNAME}}
                 password: ${{secrets.ACR_PASSWORD}}
 
             - name: Build and Push
