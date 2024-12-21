@@ -2,7 +2,7 @@ name: Push image to ACR
 on:
     workflow_dispatch:
 
-   jobs:
+jobs:
     build:
         runs-on: ubuntu-latest
         
@@ -11,7 +11,7 @@ on:
               uses: actions/checkout@v2
 
             - name: Set up Docker
-              uses: docker/set-up-buildx-action@v1
+              uses: docker/setup-buildx-action@v1
 
             - name: Azure login
               uses: azure/docker-login@v1
